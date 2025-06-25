@@ -9,7 +9,8 @@ export class Mongo {
   private url: string = config.get('mongo.url').toString();
 
   async db() {
-    if(!this.db) {
+    // ensure a single database connection is created
+    if (!this._db) {
       this._db = await MongoClient.connect(this.url);
     }
     return this._db;
